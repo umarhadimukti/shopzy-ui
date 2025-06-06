@@ -4,9 +4,16 @@ import { API_URL } from "@/app/constants/api";
 import { redirect } from "next/navigation";
 
 export default async function createUser( _prevState: any, formData: FormData ) {
-    const res = await fetch(`${API_URL}/users/new`, {
+    const payload = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        password: formData.get('password'),
+    };
+
+    const res = await fetch(`${API_URL}/api/users/new`, {
         method: "POST",
-        body: formData,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
     });
 
     const parsedRes = await res.json();
@@ -15,6 +22,9 @@ export default async function createUser( _prevState: any, formData: FormData ) 
         console.log(parsedRes);
         return { error: "" };
     }
+
+    console.log(parsedRes);
+    console.log('jalan');
 
     redirect("/");
 }
