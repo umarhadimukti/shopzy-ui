@@ -1,7 +1,6 @@
 "use server";
 
 import { API_URL } from "@/app/constants/api";
-import { getErrorMessage } from "@/app/utils/error";
 import { redirect } from "next/navigation";
 
 export default async function createUser( _prevState: any, formData: FormData ) {
@@ -20,12 +19,22 @@ export default async function createUser( _prevState: any, formData: FormData ) 
     const parsedRes = await res.json();
 
     if (!res.ok) {
-        console.log(parsedRes);
         return { error: getErrorMessage(parsedRes) };
     }
 
-    console.log(parsedRes);
-    console.log('jalan');
-
     redirect("/");
+}
+
+const getErrorMessage = (response: any): string => {
+    if (response.message) {
+        if (Array.isArray(response.message)) {
+            return formatErrorMessage(response.message[0]);
+        }
+    }
+
+    return 'unknown error occured';
+}
+
+const formatErrorMessage = (message: string): string => {
+    return `${message.charAt(0).toUpperCase()}${message.slice(1)}`;
 }
