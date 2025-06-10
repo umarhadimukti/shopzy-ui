@@ -1,23 +1,14 @@
 "use client";
 
-import { Button, Stack, TextField, Link, Typography } from "@mui/material";
+import { Button, Stack, TextField, Link } from "@mui/material";
 import React, { useActionState } from "react";
 import NextLink from "next/link";
 import AuthLayout from "../AuthLayout";
 import createUser from "./create-user";
 
-type ErrorState = {
-  errorMap: Record<string, string>;
-  error: string;
-};
-
-const initialState: ErrorState = {
-  errorMap: {},
-  error: "",
-};
 
 const Register = () => {
-  const [state, formAction] = useActionState(createUser, initialState);
+  const [state, formAction] = useActionState(createUser, { error: "" });
 
   return (
     <AuthLayout>
@@ -28,30 +19,25 @@ const Register = () => {
             label="Fullname"
             variant="outlined"
             type="text"
-            error={!!state.errorMap.name}
-            helperText={state.errorMap.name}
+            error={!!state.error}
+            helperText={state.error}
           />
           <TextField
             name="email"
             label="Email"
             variant="outlined"
             type="email"
-            error={!!state.errorMap.email}
-            helperText={state.errorMap.email}
+            error={!!state.error}
+            helperText={state.error}
           />
           <TextField
             name="password"
             label="Password"
             variant="outlined"
             type="password"
-            error={!!state.errorMap.password}
-            helperText={state.errorMap.password}
+            error={!!state.error}
+            helperText={state.error}
           />
-          {state.error && (
-            <Typography color="error" variant="body2">
-              {state.error}
-            </Typography>
-          )}
           <Button type="submit" variant="contained">
             Sign Up
           </Button>
