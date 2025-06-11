@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, Stack, TextField, Link } from "@mui/material";
 import React, { useActionState } from "react";
 import NextLink from "next/link";
