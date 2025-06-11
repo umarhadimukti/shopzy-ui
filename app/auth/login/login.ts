@@ -1,14 +1,24 @@
 "use server";
 
-import { post } from "@/app/utils/fetch";
+import { API_URL } from "@/app/constants/api";
+import { getErrorMessage } from "@/app/utils/fetch";
 import { redirect } from "next/navigation";
 
 export default async function login(_prevState: FormError, formData: FormData) {
-    const { error } = await post(`api/auth/login`, formData);
+    const res = await fetch(`${API_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(formData)),
+    });
 
-    if (error) {
-        return { error }
+    const parsedRes = await res.json();
+
+    if (!res.ok) {
+        return { error: getErrorMessage(parsedRes) };
     }
+
+    const token = res.headers.getSetCookie()[0].split(';')[0].split('=')[1];
+    console.log(token)
 
     redirect("/");
 }
