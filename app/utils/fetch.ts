@@ -26,17 +26,19 @@ export const post = async (path: string, formData: FormData) => {
 
 export const get = async<T = any> (path: string): Promise<ApiResponse<T>> => {
     try {
+        const cookieStore = await cookies();
+        const cookieString = cookieStore.toString();
+        console.log(`sending cookies: ${cookieString}`);
+
         const res = await fetch(`${API_URL}/${path}`, {
             headers: {
-                Cookie: (await cookies()).toString(),
+                Cookie: cookieString,
                 "Content-Type": "application/json",
             },
-            credentials: 'include',
+            cache: 'no-store',
         });
     
         const parsedRes = await res.json();
-
-        console.log(res)
     
         if (!res.ok) {
             return { error: getErrorMessage(parsedRes) };
