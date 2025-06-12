@@ -1,11 +1,18 @@
 import { cookies } from "next/headers";
 import { API_URL } from "../constants/api";
 
+interface ApiResponse<T = any> {
+    data?: T;
+    message?: string | string[];
+    error?: string;
+}
+
 export const post = async (path: string, formData: FormData) => {
     const res = await fetch(`${API_URL}/${path}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(Object.fromEntries(formData)),
+        credentials: 'include',
     });
 
     const parsedRes = await res.json();
@@ -17,12 +24,30 @@ export const post = async (path: string, formData: FormData) => {
     return { error: "" };
 };
 
-export const get = async (path: string): Promise<Response> => {
-    const res = await fetch(`${API_URL}/${path}`, {
-        headers: { Cookie: (await cookies()).toString() },
-    });
+export const get = async<T = any> (path: string): Promise<ApiResponse<T>> => {
+    try {
+        const res = await fetch(`${API_URL}/${path}`, {
+            headers: {
+                Cookie: (await cookies()).toString(),
+                "Content-Type": "application/json",
+            },
+            credentials: 'include',
+        });
+    
+        const parsedRes = await res.json();
 
-    return await res.json();
+        console.log(res)
+    
+        if (!res.ok) {
+            return { error: getErrorMessage(parsedRes) };
+        }
+    
+        return { data: parsedRes, error: "" }
+
+    } catch (error) {
+        console.error(`Fetch error ${error}`);
+        return { error: 'Network error occurred' };
+    }
 }
 
 
@@ -39,7 +64,7 @@ export const getErrorMessage = (response: any): string => {
         }
     }
 
-    return 'unknown error occured';
+    return "Unknown error occured";
 }
 
 /**
