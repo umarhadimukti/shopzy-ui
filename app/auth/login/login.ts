@@ -1,7 +1,7 @@
 "use server";
 
-import { API_URL } from "@/app/constants/api";
-import { getErrorMessage } from "@/app/utils/fetch";
+import { API_URL } from "@/app/common/constants/api";
+import { getErrorMessage } from "@/app/common/utils/fetch";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";

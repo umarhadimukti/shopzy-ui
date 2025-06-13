@@ -1,6 +1,6 @@
 "use server";
 
-import { get } from "./utils/fetch";
+import { get } from "./common/utils/fetch";
 import { cookies } from "next/headers";
 
 export default async function getMe() {

@@ -1,6 +1,6 @@
 "use server";
 
-import { post } from "@/app/utils/fetch";
+import { post } from "@/app/common/utils/fetch";
 import { redirect } from "next/navigation";
 
 export default async function createUser(_prevState: FormError, formData: FormData) {
