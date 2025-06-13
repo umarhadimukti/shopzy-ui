@@ -1,3 +1,5 @@
+"use client";
+
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ReactElement } from "react";
 import darkTheme from "./dark.theme";
@@ -9,7 +11,7 @@ interface ProvidersProp {
     authenticated: boolean,
 };
 
-export default async function Providers({ children, authenticated }: ProvidersProp) {
+export default function Providers({ children, authenticated }: ProvidersProp) {
     return (
         <AppRouterCacheProvider>
             <ThemeProvider theme={darkTheme}>
