@@ -5,6 +5,7 @@ import { getErrorMessage } from "@/app/common/utils/fetch";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { AUTHENTICATION_COOKIE } from "../auth-cookie";
 
 export default async function login(_prevState: FormError, formData: FormData) {
     try {
@@ -39,7 +40,7 @@ export default async function login(_prevState: FormError, formData: FormData) {
                 const decoded = jwtDecode(tokenValue);
                 let expires = new Date(decoded.exp! * 1000);
 
-                cookieStore.set("Authentication", tokenValue, {
+                cookieStore.set(AUTHENTICATION_COOKIE, tokenValue, {
                     expires,
                     sameSite: 'strict',
                     httpOnly: true,

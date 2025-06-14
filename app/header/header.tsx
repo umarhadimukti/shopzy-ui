@@ -16,8 +16,13 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { AuthContext } from "../auth/auth-context";
 import { routes, unauthenticatedRoutes } from "../common/constants/routes";
+import logout from "../auth/logout";
 
-export default function Header() {
+interface HeaderProps {
+    logout: () => Promise<void>;
+}
+
+export default function Header({ logout }: HeaderProps) {
     const isAuthenticated = React.useContext(AuthContext);
 
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -119,14 +124,14 @@ export default function Header() {
                     </Button>
                 ))}
                 </Box>
-                {isAuthenticated && <Settings/>}
+                {isAuthenticated && <Settings logout={logout}/>}
             </Toolbar>
             </Container>
         </AppBar>
     );
 }
 
-const Settings = () => {
+const Settings = ({ logout }: HeaderProps) => {
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -160,7 +165,10 @@ const Settings = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
             >
-                <MenuItem key="Logout" onClick={handleCloseUserMenu}>
+                <MenuItem key="Logout" onClick={async () => {
+                    await logout();
+                    handleCloseUserMenu();
+                }}>
                     <Typography sx={{ textAlign: "center" }}>Logout</Typography>
                 </MenuItem>
             </Menu>
