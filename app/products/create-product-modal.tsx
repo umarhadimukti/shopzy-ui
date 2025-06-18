@@ -1,5 +1,9 @@
+"use client";
+
 import { Modal, Box } from "@mui/material";
 import { Button, Stack, TextField, Link } from "@mui/material";
+import { useState } from "react";
+import NextLink from 'next/link';
 
 const styles = {
     position: "absolute",
@@ -19,6 +23,7 @@ interface CreateProductModalProps {
 }
 
 export default function CreateProductModal({ open, handleClose }: CreateProductModalProps) {
+    const [response, setResponse] = useState<FormResponse>();
     return (
         <Modal open={open} onClose={handleClose}>
             <Box sx={styles}>
@@ -26,30 +31,31 @@ export default function CreateProductModal({ open, handleClose }: CreateProductM
                     <Stack spacing={2} className="w-full max-w-xs">
                         <TextField
                             name="name"
-                            label="Fullname"
+                            label="Product Name"
                             variant="outlined"
                             type="text"
-                            error={!!state.error}
-                            helperText={state.error}
+                            required
+                            error={!!response?.error}
+                            helperText={response?.error}
                         />
                         <TextField
-                            name="email"
-                            label="Email"
+                            name="description"
+                            label="Description"
                             variant="outlined"
-                            type="email"
-                            error={!!state.error}
-                            helperText={state.error}
+                            required
+                            error={!!response?.error}
+                            helperText={response?.error}
                         />
                         <TextField
-                            name="password"
-                            label="Password"
+                            name="price"
+                            label="Price"
                             variant="outlined"
-                            type="password"
-                            error={!!state.error}
-                            helperText={state.error}
+                            required
+                            error={!!response?.error}
+                            helperText={response?.error}
                         />
                         <Button type="submit" variant="contained">
-                            Sign Up
+                            Submit
                         </Button>
                         <Link component={NextLink} href="/auth/login" className="self-center">
                             Login
