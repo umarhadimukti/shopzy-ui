@@ -1,4 +1,5 @@
 import { Modal, Box } from "@mui/material";
+import { Button, Stack, TextField, Link } from "@mui/material";
 
 const styles = {
     position: "absolute",
@@ -20,7 +21,42 @@ interface CreateProductModalProps {
 export default function CreateProductModal({ open, handleClose }: CreateProductModalProps) {
     return (
         <Modal open={open} onClose={handleClose}>
-            <Box sx={styles}></Box>
+            <Box sx={styles}>
+                <form className="w-full max-w-xs">
+                    <Stack spacing={2} className="w-full max-w-xs">
+                        <TextField
+                            name="name"
+                            label="Fullname"
+                            variant="outlined"
+                            type="text"
+                            error={!!state.error}
+                            helperText={state.error}
+                        />
+                        <TextField
+                            name="email"
+                            label="Email"
+                            variant="outlined"
+                            type="email"
+                            error={!!state.error}
+                            helperText={state.error}
+                        />
+                        <TextField
+                            name="password"
+                            label="Password"
+                            variant="outlined"
+                            type="password"
+                            error={!!state.error}
+                            helperText={state.error}
+                        />
+                        <Button type="submit" variant="contained">
+                            Sign Up
+                        </Button>
+                        <Link component={NextLink} href="/auth/login" className="self-center">
+                            Login
+                        </Link>
+                    </Stack>
+                </form>
+            </Box>
         </Modal>
     )
 }
