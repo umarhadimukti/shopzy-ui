@@ -8,11 +8,17 @@ interface ApiResponse<T = any> {
 }
 
 export const post = async (path: string, formData: FormData) => {
+    const cookieStore = await cookies();
+    const cookieString = cookieStore.toString();
+    
     const res = await fetch(`${API_URL}/${path}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            Cookie: cookieString,
+            "Content-Type": "application/json",
+        },
         body: JSON.stringify(Object.fromEntries(formData)),
-        credentials: 'include',
+        cache: 'no-store',
     });
 
     const parsedRes = await res.json();
