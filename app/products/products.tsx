@@ -11,8 +11,8 @@ export default async function Products() {
     return (
         <Grid container>
             {products?.map((product: IProduct) => (
-                <Grid key={product.id}>
-                    <Product/>
+                <Grid key={product.id} columnSpacing={{ xs: 12, sm: 6, lg: 4 }}>
+                    <Product product={product} />
                 </Grid>
             ))}
         </Grid>
