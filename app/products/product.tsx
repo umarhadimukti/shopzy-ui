@@ -8,9 +8,9 @@ interface ProductProps {
 export default function Product({ product }: ProductProps) {
     return (
         <Card className="p-4">
-            <Typography variant="h4">{product.name}</Typography>
-            <Typography variant="h4">{product.description}</Typography>
-            <Typography variant="h4">{product.price}</Typography>
+            <Typography variant="h6">{product.name}</Typography>
+            <Typography variant="h6">{product.description}</Typography>
+            <Typography variant="h6">{product.price}</Typography>
         </Card>
     )
 }
