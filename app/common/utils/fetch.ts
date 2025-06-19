@@ -30,7 +30,7 @@ export const post = async (path: string, formData: FormData) => {
     return { error: "" };
 };
 
-export const get = async<T = any> (path: string): Promise<ApiResponse<T>> => {
+export const get = async<T> (path: string): Promise<ApiResponse<T>> => {
     try {
         const cookieStore = await cookies();
         const cookieString = cookieStore.toString();
