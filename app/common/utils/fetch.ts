@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { API_URL } from "../constants/api";
 
-interface ApiResponse<T = any> {
+export interface ApiResponse<T> {
     data?: T;
     message?: string | string[];
     error?: string;
@@ -44,7 +44,7 @@ export const get = async<T> (path: string): Promise<ApiResponse<T>> => {
             cache: 'no-store',
         });
     
-        const parsedRes = await res.json();
+        const parsedRes = await res.json() as T;
     
         if (!res.ok) {
             return { error: getErrorMessage(parsedRes) };
