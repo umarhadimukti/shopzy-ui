@@ -41,7 +41,6 @@ export const get = async<T> (path: string, tags: string[]): Promise<ApiResponse<
                 Cookie: cookieString,
                 "Content-Type": "application/json",
             },
-            cache: 'no-store',
             next: { tags }
         });
     
