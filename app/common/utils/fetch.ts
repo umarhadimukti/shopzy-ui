@@ -30,7 +30,7 @@ export const post = async (path: string, formData: FormData) => {
     return { error: "" };
 };
 
-export const get = async<T> (path: string): Promise<ApiResponse<T>> => {
+export const get = async<T> (path: string, tags: string[]): Promise<ApiResponse<T>> => {
     try {
         const cookieStore = await cookies();
         const cookieString = cookieStore.toString();
@@ -42,6 +42,7 @@ export const get = async<T> (path: string): Promise<ApiResponse<T>> => {
                 "Content-Type": "application/json",
             },
             cache: 'no-store',
+            next: { tags }
         });
     
         const parsedRes = await res.json() as T;
