@@ -27,7 +27,7 @@ export const post = async (path: string, formData: FormData) => {
         return { error: getErrorMessage(parsedRes) };
     }
 
-    return { error: "" };
+    return { error: "", data: parsedRes };
 };
 
 export const get = async<T> (path: string, tags: string[]): Promise<ApiResponse<T>> => {

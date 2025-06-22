@@ -1,6 +1,6 @@
 "use client";
 
-import { Modal, Box } from "@mui/material";
+import { Modal, Box, Typography } from "@mui/material";
 import { Button, Stack, TextField } from "@mui/material";
 import { CSSProperties, useState } from "react";
 import createProduct from "./actions/create-product";
@@ -37,10 +37,12 @@ interface CreateProductModalProps {
 
 export default function CreateProductModal({ open, handleClose }: CreateProductModalProps) {
     const [response, setResponse] = useState<FormResponse>();
+    const [fileName, setFileName] = useState("");
 
     const onClose = () => {
         setResponse(undefined);
         handleClose();
+        setFileName("");
     };
 
     return (
@@ -89,9 +91,13 @@ export default function CreateProductModal({ open, handleClose }: CreateProductM
                             startIcon={<CloudUploadIcon/>}
                         >
                             Upload File
-                            <input type="file" name="image" style={fileInputStyles} />
+                            <input
+                                type="file"
+                                name="image"
+                                style={fileInputStyles}
+                                onChange={(e) => e.target.files && setFileName(e.target.files[0].name)} />
                         </Button>
-
+                        <Typography variant="body2">{fileName}</Typography>
                         <Button type="submit" variant="contained">
                             Save
                         </Button>
