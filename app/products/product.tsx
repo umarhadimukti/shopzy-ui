@@ -10,7 +10,7 @@ interface ProductProps {
 export default function Product({ product }: ProductProps) {
     return (
         <Card className="p-4">
-            <Stack gap={3}>
+            <Stack gap={2}>
                 {product.imageExists && (
                     <Image
                         src={`${API_URL}/products/${product.id}.jpg`}
@@ -23,9 +23,9 @@ export default function Product({ product }: ProductProps) {
                 )}
                 
                 <Stack gap={1}>
-                    <Typography variant="h6">{product.name}</Typography>
+                    <Typography variant="h6" style={{ fontWeight: "bold" }}>{product.name}</Typography>
                     <Typography variant="body2">{product.price}</Typography>
-                    <Typography variant="body2">{product.description}</Typography>
+                    <Typography variant="body2" className="truncate">{product.description}</Typography>
                 </Stack>
             </Stack>
         </Card>
