@@ -13,8 +13,8 @@ export default async function SingleProduct({ params }: SingleProductProps) {
     const product = await getProduct(+params.productId);
 
     return (
-        <Stack gap={3} marginBottom="3rem">
-            <Typography variant="h6" sx={{fontWeight: "bold"}}>{product.data?.name}</Typography>
+        <Stack gap={2} marginBottom="3rem">
+            <Typography variant="h5" sx={{fontWeight: "bold"}}>{product.data?.name}</Typography>
             {
                 product.data?.imageExists && (
                     <Image
@@ -27,8 +27,10 @@ export default async function SingleProduct({ params }: SingleProductProps) {
                     />
                 )
             }
-            <Typography variant="body2" sx={{fontWeight: 300}}>{product.data?.price}</Typography>
-            <Typography variant="body2" sx={{fontWeight: 300, color: "text.secondary"}} className="truncate">{product.data?.description}</Typography>
+            <Stack gap={1}>
+                <Typography variant="h5" sx={{fontWeight: 300}}>{product.data?.price}</Typography>
+                <Typography variant="body1" sx={{fontWeight: 300, color: "text.secondary"}} className="truncate">{product.data?.description}</Typography>
+            </Stack>
         </Stack>
     )
 }

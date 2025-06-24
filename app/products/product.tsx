@@ -28,7 +28,7 @@ export default function Product({ product }: ProductProps) {
                 <Stack gap={1}>
                     <Typography variant="h6" style={{ fontWeight: "bold" }}>{product.name}</Typography>
                     <Typography variant="body2">{product.price}</Typography>
-                    <Typography variant="body2" className="truncate">{product.description}</Typography>
+                    <Typography variant="body2" className="truncate" sx={{ color: "text.secondary" }}>{product.description}</Typography>
                 </Stack>
             </Stack>
         </Card>
