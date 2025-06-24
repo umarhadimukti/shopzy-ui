@@ -30,7 +30,7 @@ export const post = async (path: string, formData: FormData) => {
     return { error: "", data: parsedRes };
 };
 
-export const get = async<T> (path: string, tags: string[]): Promise<ApiResponse<T>> => {
+export const get = async<T> (path: string, tags?: string[]): Promise<ApiResponse<T>> => {
     try {
         const cookieStore = await cookies();
         const cookieString = cookieStore.toString();
