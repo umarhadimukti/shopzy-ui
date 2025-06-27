@@ -14,9 +14,9 @@ export default async function SingleProduct({ params }: SingleProductProps) {
 
     return (
         <Grid container spacing={1}>
-            <Grid size={{xs: 12, md: 6}}>
-                {
-                    product.data?.imageExists && (
+            {
+                product.data?.imageExists && (
+                    <Grid size={{xs: 12, md: 6}}>
                         <Image
                             src={`${API_URL}/images/products/${product.data?.id}.jpg`}
                             width={0}
@@ -25,9 +25,9 @@ export default async function SingleProduct({ params }: SingleProductProps) {
                             sizes="100vw"
                             alt={`img-${product.data?.id}-product`}
                         />
-                    )
-                }
-            </Grid>
+                    </Grid>
+                )
+            }
             <Grid size={{xs: 12, md: 6}}>
                 <Stack gap={1}>
                     <Typography variant="h5" sx={{fontWeight: "bold"}}>{product.data?.name}</Typography>
