@@ -7,7 +7,9 @@ export interface ApiResponse<T> {
     error?: string;
 }
 
-export const post = async (path: string, formData: FormData) => {
+export const post = async (path: string, data: FormData | object) => {
+    const body = data instanceof FormData ? Object.fromEntries(data) : data;
+
     const cookieStore = await cookies();
     const cookieString = cookieStore.toString();
     
@@ -17,7 +19,7 @@ export const post = async (path: string, formData: FormData) => {
             Cookie: cookieString,
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(Object.fromEntries(formData)),
+        body: JSON.stringify(body),
         cache: 'no-store',
     });
 
