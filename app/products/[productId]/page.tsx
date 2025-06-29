@@ -11,7 +11,8 @@ interface SingleProductProps {
 }
 
 export default async function SingleProduct({ params }: SingleProductProps) {
-    const product = await getProduct(+params.productId);
+    const { productId } = await params;
+    const product = await getProduct(+productId);
 
     return (
         <Grid container spacing={1}>

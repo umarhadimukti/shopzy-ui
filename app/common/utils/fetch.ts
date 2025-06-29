@@ -36,7 +36,6 @@ export const get = async<T> (path: string, tags?: string[]): Promise<ApiResponse
     try {
         const cookieStore = await cookies();
         const cookieString = cookieStore.toString();
-        console.log(`sending cookies: ${cookieString}`);
 
         const res = await fetch(`${API_URL}/${path}`, {
             headers: {
