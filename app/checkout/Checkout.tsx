@@ -5,7 +5,7 @@ import checkout from "./actions/checkout";
 import getStripe from "./stripe";
 
 interface CheckoutProps {
-    productId: number | undefined;
+    productId: number;
 }
 
 export default function Checkout({ productId }: CheckoutProps) {
