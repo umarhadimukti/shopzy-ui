@@ -20,7 +20,6 @@ export const post = async (path: string, data: FormData | object) => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(body),
-        cache: 'no-store',
     });
 
     const parsedRes = await res.json();
