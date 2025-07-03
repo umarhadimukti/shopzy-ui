@@ -31,12 +31,14 @@ export const post = async (path: string, data: FormData | object) => {
     return { error: "", data: parsedRes };
 };
 
-export const get = async<T> (path: string, tags?: string[]): Promise<ApiResponse<T>> => {
+export const get = async<T> (path: string, tags?: string[], params?: URLSearchParams): Promise<ApiResponse<T>> => {
     try {
+        const url = params ? `${API_URL}/${path}?${params}` : `${API_URL}/${path}`;
+
         const cookieStore = await cookies();
         const cookieString = cookieStore.toString();
 
-        const res = await fetch(`${API_URL}/${path}`, {
+        const res = await fetch(url, {
             headers: {
                 Cookie: cookieString,
                 "Content-Type": "application/json",
