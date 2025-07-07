@@ -1,3 +1,5 @@
+"use client";
+
 import { Grid } from "@mui/material";
 import { Product as IProduct } from "./interfaces/product.interface";
 import Product from "./product";
@@ -7,7 +9,6 @@ interface ProductsGridProps {
 }
 
 export default function ProductsGrid({ products }: ProductsGridProps) {
-
     return (
         <Grid
             container
