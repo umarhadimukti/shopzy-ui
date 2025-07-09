@@ -19,7 +19,7 @@ export default function ProductsGrid({ products }: ProductsGridProps) {
         const createSocket = async () => {
             socket = io(API_URL!, {
                 auth: {
-                    Authentication: getAuthentication(),
+                    Authentication: await getAuthentication(),
                 }
             });
     
