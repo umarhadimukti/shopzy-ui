@@ -7,8 +7,6 @@ export async function middleware(request: NextRequest) {
 
     const pathname = request.nextUrl.pathname;
 
-    console.log(request.headers.get("cookie"));
-
     // handle when user is not authenticated
     if (!auth && !unauthenticatedRoutes.some(route => pathname.startsWith(route.path))) {
         return NextResponse.redirect(new URL("/auth/login", request.url));
