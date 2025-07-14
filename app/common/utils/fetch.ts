@@ -10,6 +10,8 @@ export interface ApiResponse<T> {
 export const post = async (path: string, data: FormData | object) => {
     const body = data instanceof FormData ? Object.fromEntries(data) : data;
 
+    console.log(`data: ${JSON.stringify(data, null, 2)}`);
+
     const cookieStore = await cookies();
     const cookieString = cookieStore.toString();
     
