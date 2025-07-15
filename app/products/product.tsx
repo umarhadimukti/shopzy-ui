@@ -5,6 +5,7 @@ import { Product as IProduct } from "./interfaces/product.interface";
 import Image from "next/image";
 import { API_URL } from "../common/constants/api";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 interface ProductProps {
     product: IProduct;
@@ -12,6 +13,28 @@ interface ProductProps {
 
 export default function Product({ product }: ProductProps) {
     const router = useRouter();
+    const [ext, setExt] = useState<'jpg' | 'png' | null>(null);
+
+    useEffect(() => {
+        if (!product.imageExists) return;
+
+        const checkImageExtension = async () => {
+            const tryExt = async (ext: 'jpg' | 'png') => {
+                const res = await fetch(`${API_URL}/images/products/${product.id}.${ext}`, {
+                    method: "HEAD",
+                });
+                console.log(`Checking image extension: ${ext}, exists: ${res.ok}`);
+                return res.ok ? ext : null;
+            }
+
+            const foundExt = (await tryExt('jpg')) || (await tryExt('png'));
+            setExt(foundExt);
+        }
+        
+        checkImageExtension();
+
+    }, [product]);
+
     return (
         <CardActionArea onClick={() => router.push(`/products/${product.id}`)}>
             <Card
@@ -21,7 +44,7 @@ export default function Product({ product }: ProductProps) {
                 <Stack gap={2}>
                     {product.imageExists && (
                         <Image
-                            src={`${API_URL}/images/products/${product.id}.jpg`}
+                            src={`${API_URL}/images/products/${product.id}.${ext || 'jpg'}`}
                             width={0}
                             height={0}
                             className="w-full h-auto"
