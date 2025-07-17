@@ -23,7 +23,7 @@ export default function Product({ product }: ProductProps) {
                 const res = await fetch(`${API_URL}/images/products/${product.id}.${ext}`, {
                     method: "HEAD",
                 });
-                console.log(`Checking image extension: ${ext}, exists: ${res.ok}`);
+                console.log(res)
                 return res.ok ? ext : null;
             }
 
