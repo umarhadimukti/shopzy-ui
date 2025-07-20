@@ -41,7 +41,7 @@ export default function Header({ logout }: HeaderProps) {
     const pages = isAuthenticated ? routes : unauthenticatedRoutes;
 
     return (
-        <AppBar position="static">
+        <AppBar position="absolute">
             <Container maxWidth="xl">
             <Toolbar disableGutters>
                 <ShoppingBasketIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
