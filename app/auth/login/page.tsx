@@ -13,28 +13,58 @@ const Login = () => {
         <AuthLayout>
             <Card
                 sx={{
-                    px: { xs: 4, sm: 8, md: 13, lg: 15 },
+                    px: { xs: 4, sm: 6, md: 8, lg: 10 },
                     py: 9,
                     width: "100%",
-                    maxWidth: "500px"
+                    maxWidth: "500px",
+                    minHeight: "300px",
+                    borderRadius: "2%",
+                    boxShadow: 3,
                 }}>
                 <form action={formAction} className="w-full">
                     <Stack spacing={2} className="w-full">
                         <TextField
                             name="email"
-                            label="Email Address"
+                            label="email address"
                             variant="outlined"
                             type="email"
                             helperText={state.error}
-                            error={!!state.error} />
+                            error={!!state.error}
+                            sx={{
+                                backgroundColor: "black",
+                                outline: "none",
+                                border: "none",
+                                ring: "none",
+                                borderRadius: "5px",
+                            }}/>
                         <TextField
                             name="password"
                             label="Password"
                             variant="outlined"
                             type="password"
                             helperText={state.error}
-                            error={!!state.error} />
-                        <Button type="submit" variant="contained">Login</Button>
+                            error={!!state.error}
+                            sx={{
+                                backgroundColor: "black",
+                                outline: "none",
+                                border: "none",
+                                ring: "none",
+                                borderRadius: "5px",
+                            }}/>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            sx={{
+                                backgroundColor: "#19b0e0",
+                                '&:hover': {
+                                    backgroundColor: "#148fb9",
+                                },
+                                border: "none",
+                                outline: "none",
+                                ring: "none",
+                            }}>
+                            Login
+                        </Button>
                         <Stack direction="row" justifyContent="space-between" className="text-xs">
                             <Link component={NextLink} href="/auth/signup" className="self-center">
                                 Sign Up
