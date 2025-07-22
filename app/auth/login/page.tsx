@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 
 const Login = () => {
-    const [state, formAction] = useActionState(login, { error: "" });
+    const [state, formAction] = useActionState(login, { error: "", email: "" });
 
     return (
         <AuthLayout>
@@ -58,7 +58,7 @@ const Login = () => {
                             label="email address"
                             variant="outlined"
                             type="email"
-                            helperText={state.error}
+                            defaultValue={state.email}
                             error={!!state.error}
                             sx={{
                                 backgroundColor: "black",
@@ -72,7 +72,6 @@ const Login = () => {
                             label="Password"
                             variant="outlined"
                             type="password"
-                            helperText={state.error}
                             error={!!state.error}
                             sx={{
                                 backgroundColor: "black",
@@ -81,6 +80,15 @@ const Login = () => {
                                 ring: "none",
                                 borderRadius: "5px",
                             }}/>
+                        {state.error && (
+                            <Typography
+                                color="error"
+                                variant="body2"
+                                aria-live="polite"
+                                sx={{ mt: -1, mb: 3, }}>
+                                {state.error}
+                            </Typography>
+                        )}
                         <Button
                             type="submit"
                             variant="contained"

@@ -8,6 +8,8 @@ import { redirect } from "next/navigation";
 import { AUTHENTICATION_COOKIE } from "../auth-cookie";
 
 export default async function login(_prevState: FormResponse, formData: FormData) {
+    const email = formData.get("email")?.toString() ?? "";
+
     try {
         const res = await fetch(`${API_URL}/api/auth/login`, {
             method: "POST",
@@ -18,7 +20,7 @@ export default async function login(_prevState: FormResponse, formData: FormData
         const parsedRes = await res.json();
     
         if (!res.ok) {
-            return { error: getErrorMessage(parsedRes) };
+            return { error: getErrorMessage(parsedRes), email };
         }
 
         const cookieStore = await cookies();
@@ -50,14 +52,14 @@ export default async function login(_prevState: FormResponse, formData: FormData
                 console.log("cookie set successfully");
             } else {
                 console.error("No Set-Cookie Headers found");
-                return { error: "Authentication failed. no cookie received." };
+                return { error: "Authentication Failed", email };
             }
 
         }
 
     } catch (error) {
         console.error("Login error:", error);
-        return { error: "Login failed. Please try again." };
+        return { error: "Login failed! Please try again.", email };
     }
 
     redirect("/");
